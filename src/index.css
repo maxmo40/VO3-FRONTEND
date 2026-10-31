@@ -1,0 +1,542 @@
+:root {
+  --bg: #f8f9fb;
+  --surface: #ffffff;
+  --text: #16181d;
+  --text-muted: #5c6370;
+  --border: #e3e6eb;
+  --primary: #3b5bdb;
+  --primary-hover: #2f4ac0;
+  --error: #c92a2a;
+  --success: #2b8a3e;
+  --radius: 10px;
+  /* Adapte les contrôles natifs (calendrier, listes) au thème clair/sombre */
+  color-scheme: light dark;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111317;
+    --surface: #1a1d23;
+    --text: #eceef2;
+    --text-muted: #9aa1ad;
+    --border: #2c3038;
+    --primary: #5c7cfa;
+    --primary-hover: #748ffc;
+    --error: #ff8787;
+    --success: #69db7c;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.logo {
+  border: none;
+  background: none;
+  color: var(--text);
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 0;
+}
+
+.btn {
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 10px 18px;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-large {
+  padding: 14px 28px;
+  font-size: 1.05rem;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.link {
+  border: none;
+  background: none;
+  color: var(--primary);
+  font-weight: 600;
+  padding: 0;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.hero {
+  text-align: center;
+  padding: 96px 0 64px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  margin: 0 0 16px;
+}
+
+.hero-subtitle {
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  max-width: 520px;
+  margin: 0 auto 32px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  padding-bottom: 96px;
+}
+
+.feature,
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.feature h2 {
+  font-size: 1.1rem;
+  margin: 0 0 8px;
+}
+
+.feature p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+
+.modal h2 {
+  margin: 0 0 24px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal label,
+.profil-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.modal input,
+.profil-form input,
+.profil-form select {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.modal input:focus,
+.profil-form input:focus,
+.profil-form select:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -1px;
+}
+
+.form-error {
+  color: var(--error);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.modal-switch {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 20px 0 0;
+}
+
+.espace {
+  padding: 64px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.espace h1 {
+  margin: 0;
+}
+
+.espace .card {
+  width: 100%;
+}
+
+.card dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 12px 24px;
+  margin: 0;
+}
+
+.card dt {
+  color: var(--text-muted);
+}
+
+.card dd {
+  margin: 0;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.form-success {
+  color: var(--success);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.profil-form h2 {
+  font-size: 1.15rem;
+  margin: 0 0 20px;
+}
+
+.profil-form fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.form-grid-full {
+  grid-column: 1 / -1;
+}
+
+.vo2max {
+  border-color: var(--primary);
+}
+
+.vo2max h2 {
+  font-size: 1.15rem;
+  margin: 0 0 8px;
+}
+
+.vo2max-valeur {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 8px;
+}
+
+.vo2max-valeur span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.vo2max-note,
+.vo2max-hint {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.small {
+  font-size: 0.85rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.link:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.card-header h2,
+.paiement h2 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.card > p {
+  margin: 0;
+}
+
+.rdv-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rdv-liste li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rdv-liste li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.rdv-liste li span:first-letter {
+  text-transform: uppercase;
+}
+
+.rdv-liste li.passe {
+  opacity: 0.55;
+}
+
+.reservation {
+  padding: 64px 0 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.reservation h1 {
+  margin: 0;
+}
+
+.etapes {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: etape;
+}
+
+.etapes li {
+  counter-increment: etape;
+  flex: 1;
+  padding-top: 8px;
+  border-top: 3px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.etapes li::before {
+  content: counter(etape) '. ';
+}
+
+.etapes li.active {
+  border-color: var(--primary);
+  color: var(--text);
+}
+
+.bilans {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.bilan {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  color: var(--text);
+  transition: border-color 0.15s;
+}
+
+.bilan:hover {
+  border-color: var(--primary);
+}
+
+.bilan-nom {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.bilan-prix {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.recap-ligne {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-weight: 600;
+}
+
+.jours {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.jour h2 {
+  font-size: 1rem;
+  margin: 0 0 8px;
+}
+
+.jour h2:first-letter {
+  text-transform: uppercase;
+}
+
+.horaires {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.horaires .btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.paiement {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 480px;
+}
+
+.paiement .link {
+  align-self: flex-start;
+}
+
+.paiement dd:first-letter,
+.confirmation strong:first-letter {
+  text-transform: uppercase;
+}
+
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 480px;
+}
+
+.confirmation h1 {
+  font-size: 1.6rem;
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 16px;
+  }
+
+  .header-actions .btn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}

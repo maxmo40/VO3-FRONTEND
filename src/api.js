@@ -1,0 +1,49 @@
+const STORAGE_KEY = 'vo3_session'
+
+export const loadSession = () => {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY))
+  } catch {
+    return null
+  }
+}
+
+export const saveSession = (session) => {
+  try {
+    if (session) localStorage.setItem(STORAGE_KEY, JSON.stringify(session))
+    else localStorage.removeItem(STORAGE_KEY)
+  } catch {
+    // stockage indisponible (navigation privée) : la session reste en mémoire
+  }
+}
+
+const request = async (path, { method = 'GET', body, token } = {}) => {
+  const res = await fetch(`/api${path}`, {
+    method,
+    headers: {
+      ...(body && { 'Content-Type': 'application/json' }),
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+    body: body && JSON.stringify(body),
+  })
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) {
+    const error = new Error(data.error || 'Une erreur est survenue')
+    error.status = res.status
+    throw error
+  }
+  return data
+}
+
+export const api = {
+  signup: (email, password) => request('/auth/signup', { method: 'POST', body: { email, password } }),
+  login: (email, password) => request('/auth/login', { method: 'POST', body: { email, password } }),
+  refresh: (refresh_token) => request('/auth/refresh', { method: 'POST', body: { refresh_token } }),
+  me: (token) => request('/auth/me', { token }),
+  getProfil: (token) => request('/profil', { token }),
+  updateProfil: (token, profil) => request('/profil', { method: 'PUT', body: profil, token }),
+  getBilans: () => request('/rdv/bilans'),
+  getCreneaux: () => request('/rdv/creneaux'),
+  reserver: (token, reservation) => request('/rdv', { method: 'POST', body: reservation, token }),
+  mesRdv: (token) => request('/rdv/mes-rdv', { token }),
+}
