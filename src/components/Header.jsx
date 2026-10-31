@@ -1,6 +1,6 @@
 import { useAuth } from '../AuthContext.jsx'
 
-export default function Header({ onHome, onLogin, onEspace, onRdv }) {
+export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin }) {
   const { user, loading } = useAuth()
 
   return (
@@ -9,6 +9,11 @@ export default function Header({ onHome, onLogin, onEspace, onRdv }) {
         VO3
       </button>
       <nav className="header-actions">
+        {user?.is_admin && (
+          <button className="btn btn-secondary" onClick={onAdmin}>
+            Agenda
+          </button>
+        )}
         <button className="btn btn-secondary" onClick={onRdv}>
           Prendre RDV
         </button>

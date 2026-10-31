@@ -55,4 +55,5 @@ export const api = {
   getCreneaux: () => request('/rdv/creneaux'),
   reserver: (token, reservation) => request('/rdv', { method: 'POST', body: reservation, token }),
   mesRdv: (token) => request('/rdv/mes-rdv', { token }),
+  agenda: (token) => request('/admin/rdv', { token }),
 }

@@ -39,6 +39,13 @@ export function AuthProvider({ children }) {
     const restore = isExpired ? api.refresh(stored.refresh_token) : Promise.resolve(stored)
 
     restore
+      // Les droits admin peuvent avoir changé depuis la dernière connexion
+      .then((session) =>
+        api
+          .me(session.access_token)
+          .then((me) => ({ ...session, user: { ...session.user, is_admin: me.is_admin } }))
+          .catch(() => session)
+      )
       .then(updateSession)
       .catch(() => updateSession(null))
       .finally(() => setLoading(false))

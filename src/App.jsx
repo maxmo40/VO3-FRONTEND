@@ -4,6 +4,7 @@ import Header from './components/Header.jsx'
 import Landing from './components/Landing.jsx'
 import MonEspace from './components/MonEspace.jsx'
 import Reservation from './components/Reservation.jsx'
+import Agenda from './components/Agenda.jsx'
 import AuthModal from './components/AuthModal.jsx'
 
 export default function App() {
@@ -11,9 +12,9 @@ export default function App() {
   const [page, setPage] = useState('accueil')
   const [authOpen, setAuthOpen] = useState(false)
 
-  // Déconnecté depuis "Mon espace" : retour à l'accueil
+  // Déconnecté depuis "Mon espace" ou l'agenda : retour à l'accueil
   useEffect(() => {
-    if (!user && page === 'espace') setPage('accueil')
+    if ((!user && page === 'espace') || (!user?.is_admin && page === 'admin')) setPage('accueil')
   }, [user, page])
 
   const openAuth = () => setAuthOpen(true)
@@ -25,9 +26,12 @@ export default function App() {
         onLogin={openAuth}
         onEspace={() => setPage('espace')}
         onRdv={() => setPage('rdv')}
+        onAdmin={() => setPage('admin')}
       />
       <main>
-        {page === 'espace' && user ? (
+        {page === 'admin' && user?.is_admin ? (
+          <Agenda />
+        ) : page === 'espace' && user ? (
           <MonEspace onRdv={() => setPage('rdv')} />
         ) : page === 'rdv' ? (
           <Reservation onLogin={openAuth} onEspace={() => setPage('espace')} />
