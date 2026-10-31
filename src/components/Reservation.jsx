@@ -19,9 +19,12 @@ export default function Reservation({ onLogin, onEspace }) {
       .then(setCreneaux)
       .catch((err) => setError(err.message))
 
-  useEffect(() => {
+  const chargerBilans = () => {
+    setError('')
     api.getBilans().then(setBilans).catch((err) => setError(err.message))
-  }, [])
+  }
+
+  useEffect(chargerBilans, [])
 
   useEffect(() => {
     if (bilan) chargerCreneaux()
@@ -92,7 +95,16 @@ export default function Reservation({ onLogin, onEspace }) {
         <li className={etape >= 3 ? 'active' : ''}>Paiement</li>
       </ol>
 
-      {error && <p className="form-error">{error}</p>}
+      {error && (
+        <div className="erreur-ligne">
+          <p className="form-error">{error}</p>
+          {etape === 1 && bilans.length === 0 && (
+            <button className="btn btn-secondary" onClick={chargerBilans}>
+              Réessayer
+            </button>
+          )}
+        </div>
+      )}
 
       {etape === 1 && (
         <div className="bilans">

@@ -17,15 +17,24 @@ export const saveSession = (session) => {
   }
 }
 
+const SERVEUR_INJOIGNABLE = 'Le serveur est injoignable pour le moment. Réessayez dans quelques instants.'
+
 const request = async (path, { method = 'GET', body, token } = {}) => {
-  const res = await fetch(`/api${path}`, {
-    method,
-    headers: {
-      ...(body && { 'Content-Type': 'application/json' }),
-      ...(token && { Authorization: `Bearer ${token}` }),
-    },
-    body: body && JSON.stringify(body),
-  })
+  let res
+  try {
+    res = await fetch(`/api${path}`, {
+      method,
+      headers: {
+        ...(body && { 'Content-Type': 'application/json' }),
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
+      body: body && JSON.stringify(body),
+    })
+  } catch {
+    throw new Error(SERVEUR_INJOIGNABLE)
+  }
+  // 502/503/504 : le proxy ou l'hébergeur n'arrive pas à joindre le backend
+  if ([502, 503, 504].includes(res.status)) throw new Error(SERVEUR_INJOIGNABLE)
   const data = await res.json().catch(() => ({}))
   if (!res.ok) {
     const error = new Error(data.error || 'Une erreur est survenue')

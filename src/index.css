@@ -540,3 +540,10 @@ main {
     font-size: 0.9rem;
   }
 }
+
+.erreur-ligne {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
