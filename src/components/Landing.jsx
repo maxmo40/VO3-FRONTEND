@@ -1,4 +1,6 @@
 import Parcours from './Parcours.jsx'
+import Marque from './Marque.jsx'
+import Remparts from './Remparts.jsx'
 
 // Pas de lecture automatique pour les personnes qui demandent moins d'animations
 const animationsReduites = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
@@ -18,9 +20,12 @@ export default function Landing({ onRdv }) {
           preload="metadata"
           aria-hidden="true"
         />
+        <Remparts />
       </div>
       <section className="hero">
-        <h1>Bienvenue sur VO2RUN</h1>
+        <h1>
+          Bienvenue sur <Marque />
+        </h1>
         <p className="hero-subtitle">
           Test physiologique par épreuve d'effort cardio-respiratoire dite VO2max.
         </p>

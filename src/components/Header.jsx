@@ -1,13 +1,14 @@
 import { useAuth } from '../AuthContext.jsx'
 import MenuDeroulant from './MenuDeroulant.jsx'
+import Marque from './Marque.jsx'
 
 export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin, onCentre, onEquipe, onVo2, onClubs, onContact }) {
   const { user, loading } = useAuth()
 
   return (
     <header className="header">
-      <button className="logo" onClick={onHome}>
-        VO2RUN
+      <button className="logo" onClick={onHome} aria-label="VO2RUN, accueil">
+        <Marque />
       </button>
       <nav className="header-actions">
         <MenuDeroulant libelle="Le centre" onClick={onCentre} elements={[{ libelle: 'Notre équipe', onClick: onEquipe }]} />

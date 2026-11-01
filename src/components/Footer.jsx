@@ -1,4 +1,6 @@
 import { ADRESSE, EMAIL, HORAIRES, NOM_CENTRE, TELEPHONE } from '../infos.js'
+import Marque from './Marque.jsx'
+import Remparts from './Remparts.jsx'
 
 // Réseaux sociaux affichés mais pas encore cliquables (comptes à venir)
 const RESEAUX = [
@@ -20,52 +22,57 @@ const RESEAUX = [
 
 export default function Footer({ onCgv, onMentions }) {
   return (
-    <footer className="footer">
-      <div className="footer-colonnes">
-        <div>
-          <p className="footer-logo">{NOM_CENTRE}</p>
-          <p className="muted">Bilans de performance pour la course sur route, le trail et le vélo.</p>
-          <div className="footer-reseaux">
-            {RESEAUX.map(({ nom, icone }) => (
-              <span key={nom} className="footer-reseau" role="img" aria-label={`${nom} (bientôt disponible)`} title="Bientôt disponible">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  {icone}
-                </svg>
-              </span>
-            ))}
+    <>
+      <Remparts className="remparts-footer" />
+      <footer className="footer">
+        <div className="footer-colonnes">
+          <div>
+            <p className="footer-logo">
+              <Marque />
+            </p>
+            <p className="muted">Bilans de performance pour la course sur route, le trail et le vélo.</p>
+            <div className="footer-reseaux">
+              {RESEAUX.map(({ nom, icone }) => (
+                <span key={nom} className="footer-reseau" role="img" aria-label={`${nom} (bientôt disponible)`} title="Bientôt disponible">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    {icone}
+                  </svg>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h2>Nous contacter</h2>
+            <p>{TELEPHONE}</p>
+            <p>{EMAIL}</p>
+          </div>
+
+          <div>
+            <h2>Nous trouver</h2>
+            <address>
+              {ADRESSE.map((ligne) => (
+                <span key={ligne}>{ligne}</span>
+              ))}
+            </address>
+            <p className="muted">{HORAIRES}</p>
           </div>
         </div>
 
-        <div>
-          <h2>Nous contacter</h2>
-          <p>{TELEPHONE}</p>
-          <p>{EMAIL}</p>
+        <div className="footer-bas">
+          <span>
+            © {new Date().getFullYear()} {NOM_CENTRE}
+          </span>
+          <nav className="footer-liens" aria-label="Informations légales">
+            <button className="link" onClick={onCgv}>
+              CGV
+            </button>
+            <button className="link" onClick={onMentions}>
+              Mentions légales
+            </button>
+          </nav>
         </div>
-
-        <div>
-          <h2>Nous trouver</h2>
-          <address>
-            {ADRESSE.map((ligne) => (
-              <span key={ligne}>{ligne}</span>
-            ))}
-          </address>
-          <p className="muted">{HORAIRES}</p>
-        </div>
-      </div>
-
-      <div className="footer-bas">
-        <span>
-          © {new Date().getFullYear()} {NOM_CENTRE}
-        </span>
-        <nav className="footer-liens" aria-label="Informations légales">
-          <button className="link" onClick={onCgv}>
-            CGV
-          </button>
-          <button className="link" onClick={onMentions}>
-            Mentions légales
-          </button>
-        </nav>
-      </div>
-    </footer>
+      </footer>
+    </>
   )
 }

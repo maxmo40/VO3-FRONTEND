@@ -1,14 +1,18 @@
 :root {
-  --bg: #f8f9fb;
-  --surface: #ffffff;
-  --text: #16181d;
-  --text-muted: #5c6370;
-  --border: #e3e6eb;
-  --primary: #3b5bdb;
-  --primary-hover: #2f4ac0;
+  /* Ambiance Réunion : sable clair, vert des remparts de Mafate, lave du Piton de la Fournaise */
+  --bg: #f5f1e8;
+  --surface: #fffdf8;
+  --text: #14211b;
+  --text-muted: #56635b;
+  --border: #e3ddcf;
+  --primary: #17694a;
+  --primary-hover: #10533a;
+  --on-primary: #ffffff;
+  --accent: #d4471c;
   --error: #c92a2a;
   --success: #2b8a3e;
-  --radius: 10px;
+  --radius: 12px;
+  --font-titre: 'Outfit', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   /* Courbes O2 / CO2 (paire validée daltonisme, clair et sombre) */
   --serie-o2: #2a78d6;
   --serie-co2: #eb6834;
@@ -20,14 +24,17 @@
 }
 
 @media (prefers-color-scheme: dark) {
+  /* Nuit sur le basalte : fond volcanique, vert tropical, lave incandescente */
   :root {
-    --bg: #111317;
-    --surface: #1a1d23;
-    --text: #eceef2;
-    --text-muted: #9aa1ad;
-    --border: #2c3038;
-    --primary: #5c7cfa;
-    --primary-hover: #748ffc;
+    --bg: #0c1310;
+    --surface: #141e19;
+    --text: #ebf0ea;
+    --text-muted: #9fb0a6;
+    --border: #25332b;
+    --primary: #4cbb84;
+    --primary-hover: #6bcd9b;
+    --on-primary: #0c1310;
+    --accent: #ff7a3d;
     --error: #ff8787;
     --success: #69db7c;
     --serie-o2: #3987e5;
@@ -82,7 +89,7 @@ button {
 
 .btn-primary {
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -665,7 +672,7 @@ main {
 
 .segmented button[aria-pressed='true'] {
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
 }
 
 .btn-ghost {
@@ -811,7 +818,7 @@ main {
   display: grid;
   place-items: center;
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
   font-weight: 700;
   font-size: 1.1rem;
 }
@@ -1349,7 +1356,7 @@ main {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   height: min(60vh, 560px);
-  background: #111317;
+  background: var(--bg);
 }
 
 .hero-video video {
@@ -1426,7 +1433,7 @@ main {
   height: 48px;
   border-radius: 50%;
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
   font-weight: 700;
   font-size: 1.1rem;
   /* Anneau de la couleur du fond pour détacher le numéro de la ligne */
@@ -1450,4 +1457,82 @@ main {
     transform: none;
     transition: none;
   }
+}
+
+/* Titres dans une police plus affirmée */
+h1,
+h2,
+h3,
+.logo,
+.footer-logo,
+.bilan-nom,
+.vo2max-valeur,
+.bilan-prix {
+  font-family: var(--font-titre);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-weight: 800;
+}
+
+/* « RUN » de VO2RUN en couleur lave */
+.marque-run {
+  color: var(--accent);
+}
+
+.logo {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Silhouette des remparts de Mafate */
+.remparts {
+  display: block;
+  width: 100%;
+  height: clamp(48px, 8vw, 96px);
+}
+
+.remparts-loin {
+  fill: color-mix(in srgb, var(--primary) 45%, var(--bg));
+}
+
+.remparts-pres {
+  fill: color-mix(in srgb, var(--primary) 75%, var(--bg));
+}
+
+.remparts-sol {
+  fill: var(--bg);
+}
+
+.hero-video {
+  position: relative;
+}
+
+.hero-video .remparts {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+}
+
+/* Les remparts font la transition entre la page et le footer */
+.remparts-footer {
+  margin-top: 24px;
+}
+
+.remparts-footer .remparts-sol {
+  fill: var(--surface);
+}
+
+.remparts-footer + .footer {
+  border-top: none;
+}
+
+.header {
+  border-bottom-color: color-mix(in srgb, var(--primary) 25%, var(--border));
+}
+
+.hero h1 {
+  letter-spacing: -0.02em;
 }
