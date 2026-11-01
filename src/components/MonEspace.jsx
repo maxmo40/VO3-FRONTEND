@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../AuthContext.jsx'
 import { api } from '../api.js'
 import { formatDateHeure, formatPrix } from '../format.js'
+import Performances from './Performances.jsx'
+import Preparation from './Preparation.jsx'
 
 const PROFIL_VIDE = {
   prenom: '',
@@ -27,6 +29,7 @@ export default function MonEspace({ onRdv }) {
   const [profil, setProfil] = useState(PROFIL_VIDE)
   const [vo2max, setVo2max] = useState(null)
   const [ergometre, setErgometre] = useState('velo')
+  const [donnees, setDonnees] = useState(null)
   const [rdvs, setRdvs] = useState(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -48,6 +51,7 @@ export default function MonEspace({ onRdv }) {
         )
         setProfil(versFormulaire(data))
         setVo2max(data.vo2max)
+        setDonnees(data)
       })
       .catch((err) => setMessage({ type: 'error', text: err.message }))
       .finally(() => setLoading(false))
@@ -66,6 +70,7 @@ export default function MonEspace({ onRdv }) {
       const data = await withAuth((token) => api.updateProfil(token, profil))
       setProfil(versFormulaire(data))
       setVo2max(data.vo2max)
+      setDonnees(data)
       setMessage({ type: 'success', text: 'Profil enregistré' })
     } catch (err) {
       setMessage({ type: 'error', text: err.message })
@@ -111,6 +116,8 @@ export default function MonEspace({ onRdv }) {
         )}
       </div>
 
+      <Preparation protocole={donnees?.protocole} />
+
       {vo2max?.velo ? (
         <div className="card vo2max">
           <div className="card-header">
@@ -147,6 +154,8 @@ export default function MonEspace({ onRdv }) {
           </p>
         )
       )}
+
+      <Performances profil={donnees} onSaved={setDonnees} />
 
       <form className="card profil-form" onSubmit={handleSubmit}>
         <h2>Mes informations</h2>

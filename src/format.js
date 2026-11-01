@@ -16,3 +16,14 @@ export const formatDuree = (minutes) => {
   const m = minutes % 60
   return h ? `${h} h${m ? ` ${String(m).padStart(2, '0')}` : ''}` : `${m} min`
 }
+
+// Secondes → « mm:ss », ou « h:mm:ss » au-delà d'une heure
+export const formatChrono = (secondes) => {
+  const h = Math.floor(secondes / 3600)
+  const m = Math.floor((secondes % 3600) / 60)
+  const s = secondes % 60
+  const deux = (n) => String(n).padStart(2, '0')
+  return h ? `${h}:${deux(m)}:${deux(s)}` : `${deux(m)}:${deux(s)}`
+}
+
+export const formatVitesse = (kmh) => `${kmh.toLocaleString('fr-FR')} km/h`

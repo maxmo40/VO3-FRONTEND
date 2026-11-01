@@ -1008,3 +1008,66 @@ main {
   min-height: 118px;
   margin-top: 8px;
 }
+
+.profil-form .performances-aide {
+  margin: -8px 0 20px;
+}
+
+.preparation h2 {
+  font-size: 1.15rem;
+  margin: 0 0 12px;
+}
+
+.preparation h3 {
+  font-size: 1rem;
+  margin: 24px 0 8px;
+}
+
+.preparation > p {
+  margin: 0 0 8px;
+}
+
+.protocole {
+  width: 100%;
+  margin: 16px 0;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.protocole th,
+.protocole td {
+  text-align: left;
+  padding: 8px 12px 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.protocole thead th {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.protocole tbody th {
+  font-weight: 600;
+}
+
+/* Barre proportionnelle au % de VMA, derrière la valeur */
+.protocole-barre {
+  display: inline-block;
+  min-width: 56px;
+  width: var(--pct);
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--primary) 22%, transparent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.preparation-conseils {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--text-muted);
+}
