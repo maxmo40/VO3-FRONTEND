@@ -31,6 +31,8 @@ export default function MonEspace({ onRdv }) {
   const [ergometre, setErgometre] = useState('velo')
   const [donnees, setDonnees] = useState(null)
   const [rdvs, setRdvs] = useState(null)
+  const [aAnnuler, setAAnnuler] = useState(null)
+  const [annulation, setAnnulation] = useState({ enCours: false, erreur: null })
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState(null)
@@ -79,6 +81,18 @@ export default function MonEspace({ onRdv }) {
     }
   }
 
+  const confirmerAnnulation = async (id) => {
+    setAnnulation({ enCours: true, erreur: null })
+    try {
+      await withAuth((token) => api.annulerRdv(token, id))
+      setRdvs(rdvs.filter((rdv) => rdv.id !== id))
+      setAAnnuler(null)
+      setAnnulation({ enCours: false, erreur: null })
+    } catch (err) {
+      setAnnulation({ enCours: false, erreur: err.message })
+    }
+  }
+
   return (
     <section className="espace">
       <h1>Mon espace</h1>
@@ -110,9 +124,41 @@ export default function MonEspace({ onRdv }) {
                 <strong>{rdv.libelle}</strong>
                 <span>{formatDateHeure(rdv.debut)}</span>
                 <span className="muted">{formatPrix(rdv.prix_centimes)}</span>
+                {rdv.annulable && aAnnuler !== rdv.id && (
+                  <button
+                    className="link rdv-annuler"
+                    onClick={() => {
+                      setAAnnuler(rdv.id)
+                      setAnnulation({ enCours: false, erreur: null })
+                    }}
+                  >
+                    Annuler
+                  </button>
+                )}
+                {aAnnuler === rdv.id && (
+                  <div className="rdv-confirmation">
+                    <span>Annuler ce rendez-vous ?</span>
+                    <button
+                      className="btn btn-danger"
+                      disabled={annulation.enCours}
+                      onClick={() => confirmerAnnulation(rdv.id)}
+                    >
+                      {annulation.enCours ? 'Annulation…' : 'Oui, annuler'}
+                    </button>
+                    <button className="btn btn-secondary" disabled={annulation.enCours} onClick={() => setAAnnuler(null)}>
+                      Non
+                    </button>
+                    {annulation.erreur && <p className="form-error">{annulation.erreur}</p>}
+                  </div>
+                )}
               </li>
             ))}
           </ul>
+        )}
+        {rdvs?.some((rdv) => new Date(rdv.debut) > new Date()) && (
+          <p className="muted small rdv-note">
+            Annulation possible jusqu'à 24 h avant le rendez-vous. Passé ce délai, contactez-nous.
+          </p>
         )}
       </div>
 

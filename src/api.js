@@ -55,5 +55,6 @@ export const api = {
   getCreneaux: () => request('/rdv/creneaux'),
   reserver: (token, reservation) => request('/rdv', { method: 'POST', body: reservation, token }),
   mesRdv: (token) => request('/rdv/mes-rdv', { token }),
+  annulerRdv: (token, id) => request(`/rdv/${id}/annuler`, { method: 'POST', token }),
   agenda: (token) => request('/admin/rdv', { token }),
 }

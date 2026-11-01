@@ -1071,3 +1071,54 @@ main {
   gap: 4px;
   color: var(--text-muted);
 }
+
+.rdv-annuler {
+  margin-left: auto;
+  color: var(--error);
+  font-size: 0.9rem;
+}
+
+.rdv-confirmation {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-top: 4px;
+}
+
+.rdv-confirmation .btn {
+  padding: 6px 14px;
+  font-size: 0.9rem;
+}
+
+.btn-danger {
+  background: var(--error);
+  color: var(--surface);
+}
+
+.rdv-confirmation .form-error {
+  flex-basis: 100%;
+}
+
+.card > p.rdv-note {
+  margin-top: 16px;
+}
+
+.bilans-avertissement {
+  padding: 16px 20px;
+  border-left: 3px solid var(--primary);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.bilans-avertissement p {
+  margin: 0;
+}
+
+.bilans-avertissement p + p {
+  margin-top: 8px;
+}

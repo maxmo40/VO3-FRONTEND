@@ -60,7 +60,7 @@ export default function App() {
         ) : page === 'centre' ? (
           <Centre onRdv={() => setPage('rdv')} />
         ) : page === 'rdv' ? (
-          <Reservation onLogin={openAuth} onEspace={() => setPage('espace')} />
+          <Reservation onLogin={openAuth} onEspace={() => setPage('espace')} onContact={openContact} />
         ) : (
           <Landing onRdv={() => setPage('rdv')} />
         )}

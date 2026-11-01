@@ -3,7 +3,7 @@ import { useAuth } from '../AuthContext.jsx'
 import { api } from '../api.js'
 import { formatDateHeure, formatDuree, formatHeure, formatJour, formatPrix } from '../format.js'
 
-export default function Reservation({ onLogin, onEspace }) {
+export default function Reservation({ onLogin, onEspace, onContact }) {
   const { user, withAuth } = useAuth()
   const [bilans, setBilans] = useState([])
   const [creneaux, setCreneaux] = useState(null)
@@ -115,6 +115,21 @@ export default function Reservation({ onLogin, onEspace }) {
               <span className="muted">Durée : {formatDuree(b.duree_minutes)}</span>
             </button>
           ))}
+        </div>
+      )}
+
+      {etape === 1 && bilans.length > 0 && (
+        <div className="bilans-avertissement">
+          <p>
+            Les bilans sont réalisés par un cardiologue du sport. Ils ne sont pas pris en charge par
+            l'Assurance Maladie, car l'examen est réalisé dans le seul but d'aider à la performance.
+          </p>
+          <p>
+            Pour une consultation de cardiologie du sport, rapprochez-vous du secrétariat.{' '}
+            <button className="link" onClick={() => onContact('Consultation de cardiologie du sport')}>
+              Contacter le secrétariat
+            </button>
+          </p>
         </div>
       )}
 
