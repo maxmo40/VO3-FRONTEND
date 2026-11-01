@@ -1232,3 +1232,80 @@ main {
   color: var(--text-muted);
   font-style: italic;
 }
+
+.menu-deroulant {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.menu-deroulant > .btn-ghost {
+  padding-right: 4px;
+}
+
+.menu-fleche {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.menu-fleche svg {
+  transition: transform 0.15s;
+}
+
+.menu-fleche:hover {
+  background: var(--bg);
+}
+
+.menu-liste {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10;
+  min-width: 100%;
+  /* Marge transparente : la souris passe du bouton au menu sans le refermer */
+  padding-top: 6px;
+  display: none;
+}
+
+.menu-liste button {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  text-align: left;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.15);
+}
+
+.menu-liste button:hover {
+  background: var(--bg);
+}
+
+.menu-deroulant.ouvert .menu-liste {
+  display: block;
+}
+
+.menu-deroulant.ouvert .menu-fleche svg {
+  transform: rotate(180deg);
+}
+
+@media (hover: hover) {
+  .menu-deroulant:hover .menu-liste {
+    display: block;
+  }
+
+  .menu-deroulant:hover .menu-fleche svg {
+    transform: rotate(180deg);
+  }
+}

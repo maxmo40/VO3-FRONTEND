@@ -1,4 +1,5 @@
 import { useAuth } from '../AuthContext.jsx'
+import MenuDeroulant from './MenuDeroulant.jsx'
 
 export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin, onCentre, onEquipe, onVo2, onClubs, onContact }) {
   const { user, loading } = useAuth()
@@ -9,21 +10,15 @@ export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin, onCe
         VO3
       </button>
       <nav className="header-actions">
-        <button className="btn btn-ghost" onClick={onCentre}>
-          Le centre
-        </button>
-        <button className="btn btn-ghost" onClick={onEquipe}>
-          Notre équipe
-        </button>
+        <MenuDeroulant libelle="Le centre" onClick={onCentre} elements={[{ libelle: 'Notre équipe', onClick: onEquipe }]} />
         <button className="btn btn-ghost" onClick={onVo2}>
           Kossa la VO2 ?
         </button>
-        <button className="btn btn-ghost" onClick={onClubs}>
-          Vous êtes un club ?
-        </button>
-        <button className="btn btn-ghost" onClick={onContact}>
-          Nous contacter
-        </button>
+        <MenuDeroulant
+          libelle="Nous contacter"
+          onClick={onContact}
+          elements={[{ libelle: 'Vous êtes un club ?', onClick: onClubs }]}
+        />
         {user?.is_admin && (
           <button className="btn btn-secondary" onClick={onAdmin}>
             Agenda
