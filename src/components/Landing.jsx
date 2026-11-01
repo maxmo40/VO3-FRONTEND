@@ -22,7 +22,7 @@ export default function Landing({ onRdv }) {
       <section className="hero">
         <h1>Bienvenue sur VO2RUN</h1>
         <p className="hero-subtitle">
-          La plateforme qui vous accompagne au quotidien. Rejoignez-nous dès aujourd'hui.
+          Test physiologique par épreuve d'effort cardio-respiratoire dite VO2max.
         </p>
         <button className="btn btn-primary btn-large" onClick={onRdv}>
           Prendre rendez-vous
