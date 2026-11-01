@@ -53,7 +53,7 @@ export default function Centre({ onRdv }) {
             <li key={etape}>{etape}</li>
           ))}
         </ol>
-        <p className="muted">Durée : 1 h 30. Prévoyez une tenue de sport et vos chaussures habituelles.</p>
+        <p className="muted">Durée : 30 minutes. Prévoyez une tenue de sport et vos chaussures habituelles.</p>
       </div>
 
       <div className="card centre-infos">

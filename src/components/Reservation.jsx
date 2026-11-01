@@ -3,6 +3,9 @@ import { useAuth } from '../AuthContext.jsx'
 import { api } from '../api.js'
 import { formatDateHeure, formatDuree, formatHeure, formatJour, formatPrix } from '../format.js'
 
+// Option affichée mais pas encore réservable
+const OPTION_LACTATEMIE_CENTIMES = 2900
+
 export default function Reservation({ onLogin, onEspace, onContact }) {
   const { user, withAuth } = useAuth()
   const [bilans, setBilans] = useState([])
@@ -113,6 +116,13 @@ export default function Reservation({ onLogin, onEspace, onContact }) {
               <span className="bilan-nom">{b.libelle}</span>
               <span className="bilan-prix">{formatPrix(b.prix_centimes)}</span>
               <span className="muted">Durée : {formatDuree(b.duree_minutes)}</span>
+              <span className="bilan-option" aria-label="Option test de lactatémie, 29 euros de plus, bientôt disponible">
+                <span className="bilan-option-case" aria-hidden="true" />
+                <span>
+                  Test de lactatémie <strong>+{formatPrix(OPTION_LACTATEMIE_CENTIMES)}</strong>
+                  <span className="bilan-option-statut">Option bientôt disponible</span>
+                </span>
+              </span>
             </button>
           ))}
         </div>

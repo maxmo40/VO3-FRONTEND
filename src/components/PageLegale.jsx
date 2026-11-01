@@ -72,7 +72,7 @@ const PAGES = {
         titre: 'Prestations et prix',
         contenu: (
           <p>
-            Chaque bilan dure 1 h 30 et est facturé 149 € TTC. Les bilans sont réalisés par un
+            Chaque bilan dure 30 minutes et est facturé 149 € TTC. Les bilans sont réalisés par un
             cardiologue du sport dans un but d'aide à la performance : ils ne sont pas pris en charge
             par l'Assurance Maladie.
           </p>

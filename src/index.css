@@ -1309,3 +1309,32 @@ main {
     transform: rotate(180deg);
   }
 }
+
+.bilan-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+  color: var(--text-muted);
+  opacity: 0.6;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.bilan-option-case {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  border: 1.5px solid currentColor;
+  border-radius: 4px;
+}
+
+.bilan-option-statut {
+  display: block;
+  font-size: 0.8rem;
+  font-style: italic;
+}
