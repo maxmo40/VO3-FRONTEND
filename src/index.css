@@ -1,45 +1,26 @@
 :root {
-  /* Ambiance Réunion : sable clair, vert des remparts de Mafate, lave du Piton de la Fournaise */
-  --bg: #f5f1e8;
-  --surface: #fffdf8;
+  /* Ambiance Réunion : fond crème, vert des remparts de Mafate, rouge pour « RUN » */
+  --bg: #faf6ee;
+  --surface: #ffffff;
   --text: #14211b;
   --text-muted: #56635b;
   --border: #e3ddcf;
   --primary: #17694a;
   --primary-hover: #10533a;
   --on-primary: #ffffff;
-  --accent: #d4471c;
+  --accent: #a61c1c;
   --error: #c92a2a;
   --success: #2b8a3e;
   --radius: 12px;
   --font-titre: 'Outfit', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  /* Courbes O2 / CO2 (paire validée daltonisme, clair et sombre) */
+  /* Courbes O2 / CO2 (paire validée pour le daltonisme) */
   --serie-o2: #2a78d6;
   --serie-co2: #eb6834;
-  /* Adapte les contrôles natifs (calendrier, listes) au thème clair/sombre */
-  color-scheme: light dark;
+  /* Thème clair uniquement, y compris pour les contrôles natifs (calendrier, listes) */
+  color-scheme: light;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color: var(--text);
   background: var(--bg);
-}
-
-@media (prefers-color-scheme: dark) {
-  /* Nuit sur le basalte : fond volcanique, vert tropical, lave incandescente */
-  :root {
-    --bg: #0c1310;
-    --surface: #141e19;
-    --text: #ebf0ea;
-    --text-muted: #9fb0a6;
-    --border: #25332b;
-    --primary: #4cbb84;
-    --primary-hover: #6bcd9b;
-    --on-primary: #0c1310;
-    --accent: #ff7a3d;
-    --error: #ff8787;
-    --success: #69db7c;
-    --serie-o2: #3987e5;
-    --serie-co2: #d95926;
-  }
 }
 
 * {
@@ -1503,17 +1484,6 @@ h1 {
 
 .remparts-sol {
   fill: var(--bg);
-}
-
-.hero-video {
-  position: relative;
-}
-
-.hero-video .remparts {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
 }
 
 /* Les remparts font la transition entre la page et le footer */

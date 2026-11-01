@@ -1,6 +1,5 @@
 import Parcours from './Parcours.jsx'
 import Marque from './Marque.jsx'
-import Remparts from './Remparts.jsx'
 
 // Pas de lecture automatique pour les personnes qui demandent moins d'animations
 const animationsReduites = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
@@ -20,7 +19,6 @@ export default function Landing({ onRdv }) {
           preload="metadata"
           aria-hidden="true"
         />
-        <Remparts />
       </div>
       <section className="hero">
         <h1>
