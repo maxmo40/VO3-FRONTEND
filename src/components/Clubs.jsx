@@ -30,7 +30,7 @@ export default function Clubs({ onContact }) {
       <div className="centre-intro">
         <h1>Vous êtes un club ?</h1>
         <p>
-          Course sur route, trail ou cyclisme : VO3 accompagne les clubs et leurs entraîneurs avec une
+          Course sur route, trail ou cyclisme : VO2RUN accompagne les clubs et leurs entraîneurs avec une
           offre sur-mesure et un tarif préférentiel pour évaluer et faire progresser leurs athlètes.
         </p>
       </div>

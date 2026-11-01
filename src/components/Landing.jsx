@@ -1,8 +1,4 @@
-const FEATURES = [
-  { title: 'Simple', text: 'Créez votre compte en quelques secondes, sans étape superflue.' },
-  { title: 'Sécurisé', text: 'Vos identifiants sont protégés et vos mots de passe chiffrés.' },
-  { title: 'Personnel', text: 'Retrouvez toutes vos informations dans votre espace dédié.' },
-]
+import Parcours from './Parcours.jsx'
 
 // Pas de lecture automatique pour les personnes qui demandent moins d'animations
 const animationsReduites = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
@@ -24,7 +20,7 @@ export default function Landing({ onRdv }) {
         />
       </div>
       <section className="hero">
-        <h1>Bienvenue sur VO3</h1>
+        <h1>Bienvenue sur VO2RUN</h1>
         <p className="hero-subtitle">
           La plateforme qui vous accompagne au quotidien. Rejoignez-nous dès aujourd'hui.
         </p>
@@ -32,14 +28,7 @@ export default function Landing({ onRdv }) {
           Prendre rendez-vous
         </button>
       </section>
-      <section className="features">
-        {FEATURES.map((feature) => (
-          <article key={feature.title} className="feature">
-            <h2>{feature.title}</h2>
-            <p>{feature.text}</p>
-          </article>
-        ))}
-      </section>
+      <Parcours />
     </>
   )
 }

@@ -28,7 +28,7 @@ export default function Centre({ onRdv }) {
       <div className="centre-intro">
         <h1>Le centre</h1>
         <p>
-          VO3 est un centre d'évaluation de la performance dédié aux sportifs d'endurance : course sur
+          VO2RUN est un centre d'évaluation de la performance dédié aux sportifs d'endurance : course sur
           route, trail et vélo. Débutant ou confirmé, vous y mesurez précisément vos capacités
           physiologiques pour vous entraîner aux bonnes intensités et progresser sans vous blesser.
         </p>

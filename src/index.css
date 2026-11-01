@@ -1362,3 +1362,92 @@ main {
 .hero-video + .hero {
   padding-top: 64px;
 }
+
+.parcours {
+  padding: 32px 0 80px;
+}
+
+.parcours h2 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  text-align: center;
+  margin: 0 0 12px;
+}
+
+.parcours-intro {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  max-width: 620px;
+  margin: 0 auto 48px;
+}
+
+.parcours-etapes {
+  position: relative;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Ligne verticale qui relie les numéros */
+.parcours-etapes::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  bottom: 24px;
+  left: 23px;
+  width: 2px;
+  background: var(--border);
+}
+
+.parcours-etape {
+  position: relative;
+  display: flex;
+  gap: 24px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.parcours-etape.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.parcours-numero {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  /* Anneau de la couleur du fond pour détacher le numéro de la ligne */
+  box-shadow: 0 0 0 6px var(--bg);
+}
+
+.parcours-etape h3 {
+  font-size: 1.15rem;
+  margin: 10px 0 6px;
+}
+
+.parcours-etape p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parcours-etape {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

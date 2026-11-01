@@ -7,7 +7,7 @@ export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin, onCe
   return (
     <header className="header">
       <button className="logo" onClick={onHome}>
-        VO3
+        VO2RUN
       </button>
       <nav className="header-actions">
         <MenuDeroulant libelle="Le centre" onClick={onCentre} elements={[{ libelle: 'Notre équipe', onClick: onEquipe }]} />
