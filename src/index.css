@@ -206,7 +206,8 @@ main {
 
 .modal input,
 .profil-form input,
-.profil-form select {
+.profil-form select,
+.profil-form textarea {
   font: inherit;
   padding: 10px 12px;
   border: 1px solid var(--border);
@@ -217,7 +218,8 @@ main {
 
 .modal input:focus,
 .profil-form input:focus,
-.profil-form select:focus {
+.profil-form select:focus,
+.profil-form textarea:focus {
   outline: 2px solid var(--primary);
   outline-offset: -1px;
 }
@@ -658,4 +660,165 @@ main {
 .segmented button[aria-pressed='true'] {
   background: var(--primary);
   color: #fff;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+}
+
+.btn-ghost:hover {
+  background: var(--bg);
+}
+
+.header {
+  gap: 12px;
+}
+
+.header-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.centre {
+  padding: 64px 0 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.centre > div {
+  width: 100%;
+}
+
+.centre h1 {
+  font-size: clamp(2rem, 6vw, 2.75rem);
+  margin: 0 0 16px;
+}
+
+.centre-intro p {
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  max-width: 640px;
+  margin: 0;
+}
+
+.centre > div > h2,
+.centre .card > h2,
+.centre-infos h2,
+.clubs-contact h2 {
+  font-size: 1.15rem;
+  margin: 0 0 12px;
+}
+
+.centre .features {
+  padding: 0;
+}
+
+.centre-etapes {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.centre-etapes + p {
+  margin: 16px 0 0;
+}
+
+.centre-infos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.centre-infos p,
+.centre-infos address {
+  margin: 0;
+  font-style: normal;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+}
+
+.clubs-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.clubs-contact > div {
+  flex: 1 1 320px;
+}
+
+.clubs-contact p {
+  margin: 0;
+}
+
+.profil-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.centre .profil-form,
+.centre .confirmation {
+  width: 100%;
+  max-width: 640px;
+}
+
+.equipe {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.membre {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.membre p {
+  margin: 0;
+}
+
+.membre-entete {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.membre-entete h2 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.membre-avatar {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.membre-role {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.membre-missions {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }

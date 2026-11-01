@@ -1,6 +1,6 @@
 import { useAuth } from '../AuthContext.jsx'
 
-export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin }) {
+export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin, onCentre, onEquipe, onClubs, onContact }) {
   const { user, loading } = useAuth()
 
   return (
@@ -9,6 +9,18 @@ export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin }) {
         VO3
       </button>
       <nav className="header-actions">
+        <button className="btn btn-ghost" onClick={onCentre}>
+          Le centre
+        </button>
+        <button className="btn btn-ghost" onClick={onEquipe}>
+          Notre équipe
+        </button>
+        <button className="btn btn-ghost" onClick={onClubs}>
+          Vous êtes un club ?
+        </button>
+        <button className="btn btn-ghost" onClick={onContact}>
+          Nous contacter
+        </button>
         {user?.is_admin && (
           <button className="btn btn-secondary" onClick={onAdmin}>
             Agenda
