@@ -1338,3 +1338,27 @@ main {
   font-size: 0.8rem;
   font-style: italic;
 }
+
+/* Évite le défilement horizontal dû aux sections pleine largeur (100vw inclut la barre de défilement) */
+#root {
+  overflow-x: clip;
+}
+
+/* Bandeau vidéo pleine largeur en haut de l'accueil */
+.hero-video {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  height: min(60vh, 560px);
+  background: #111317;
+}
+
+.hero-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-video + .hero {
+  padding-top: 64px;
+}

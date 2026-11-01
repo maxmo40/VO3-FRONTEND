@@ -4,9 +4,25 @@ const FEATURES = [
   { title: 'Personnel', text: 'Retrouvez toutes vos informations dans votre espace dédié.' },
 ]
 
+// Pas de lecture automatique pour les personnes qui demandent moins d'animations
+const animationsReduites = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+
 export default function Landing({ onRdv }) {
   return (
     <>
+      {/* Vidéo Mixkit (licence gratuite, sans attribution requise) */}
+      <div className="hero-video">
+        <video
+          src="/videos/accueil.mp4"
+          poster="/videos/accueil.jpg"
+          autoPlay={!animationsReduites()}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        />
+      </div>
       <section className="hero">
         <h1>Bienvenue sur VO3</h1>
         <p className="hero-subtitle">
