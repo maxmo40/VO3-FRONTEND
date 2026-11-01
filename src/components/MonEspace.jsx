@@ -11,20 +11,9 @@ const PROFIL_VIDE = {
   telephone: '',
   poids_kg: '',
   taille_cm: '',
-  activite: '',
 }
 
-// Échelle d'activité physique PA-R (Jackson et al., 1990)
-const NIVEAUX_ACTIVITE = [
-  'Sédentaire : j’évite de marcher et de faire des efforts',
-  'Activité légère : marche pour le plaisir, escaliers de temps en temps',
-  'Activité modérée (jardinage, vélo tranquille…) de 10 à 60 min par semaine',
-  'Activité modérée plus d’1 h par semaine',
-  'Sport intense (course, natation…) moins de 30 min par semaine',
-  'Sport intense 30 à 60 min par semaine',
-  'Sport intense 1 à 3 h par semaine',
-  'Sport intense plus de 3 h par semaine',
-]
+const ERGOMETRES = { velo: 'Vélo', tapis: 'Tapis' }
 
 // Les valeurs null de la base deviennent des chaînes vides pour les champs du formulaire
 const versFormulaire = (profil) =>
@@ -37,6 +26,7 @@ export default function MonEspace({ onRdv }) {
   const [memberSince, setMemberSince] = useState(null)
   const [profil, setProfil] = useState(PROFIL_VIDE)
   const [vo2max, setVo2max] = useState(null)
+  const [ergometre, setErgometre] = useState('velo')
   const [rdvs, setRdvs] = useState(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -121,16 +111,32 @@ export default function MonEspace({ onRdv }) {
         )}
       </div>
 
-      {vo2max?.valeur != null ? (
+      {vo2max?.velo ? (
         <div className="card vo2max">
-          <h2>Estimation de votre VO2max</h2>
+          <div className="card-header">
+            <h2>Estimation de votre VO2max</h2>
+            <div className="segmented" role="group" aria-label="Ergomètre">
+              {Object.entries(ERGOMETRES).map(([cle, libelle]) => (
+                <button
+                  key={cle}
+                  type="button"
+                  aria-pressed={ergometre === cle}
+                  onClick={() => setErgometre(cle)}
+                >
+                  {libelle}
+                </button>
+              ))}
+            </div>
+          </div>
           <p className="vo2max-valeur">
-            {vo2max.valeur.toLocaleString('fr-FR')} <span>ml/kg/min</span>
+            {vo2max[ergometre].ml_kg_min.toLocaleString('fr-FR')} <span>ml/kg/min</span>
           </p>
           <p className="vo2max-note">
-            Calculée à partir de votre âge ({vo2max.age} ans), sexe, IMC (
-            {vo2max.imc.toLocaleString('fr-FR')}) et niveau d'activité, selon le modèle de Jackson
-            et al. (1990). Estimation sans test d'effort : marge d'erreur d'environ ±5 ml/kg/min.
+            Soit {vo2max[ergometre].l_min.toLocaleString('fr-FR')} L/min. VO2max théorique calculée à
+            partir de votre âge ({vo2max.age} ans), sexe, poids et taille selon les équations de Hansen
+            et Wasserman{ergometre === 'tapis' && ', majorée de 11 % sur tapis par rapport au vélo'}.
+            C'est une valeur de référence pour la population générale, pas une mesure : seul un test
+            d'effort donne votre VO2max réelle.
           </p>
         </div>
       ) : (
@@ -211,17 +217,6 @@ export default function MonEspace({ onRdv }) {
                 step="1"
                 inputMode="numeric"
               />
-            </label>
-            <label className="form-grid-full">
-              Niveau d'activité physique
-              <select name="activite" value={profil.activite} onChange={handleChange}>
-                <option value="">Non renseigné</option>
-                {NIVEAUX_ACTIVITE.map((libelle, niveau) => (
-                  <option key={niveau} value={niveau}>
-                    {niveau} – {libelle}
-                  </option>
-                ))}
-              </select>
             </label>
           </div>
         </fieldset>
