@@ -9,6 +9,9 @@
   --error: #c92a2a;
   --success: #2b8a3e;
   --radius: 10px;
+  /* Courbes O2 / CO2 (paire validée daltonisme, clair et sombre) */
+  --serie-o2: #2a78d6;
+  --serie-co2: #eb6834;
   /* Adapte les contrôles natifs (calendrier, listes) au thème clair/sombre */
   color-scheme: light dark;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -27,6 +30,8 @@
     --primary-hover: #748ffc;
     --error: #ff8787;
     --success: #69db7c;
+    --serie-o2: #3987e5;
+    --serie-co2: #d95926;
   }
 }
 
@@ -359,6 +364,7 @@ main {
 
 .card-header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
@@ -821,4 +827,184 @@ main {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.explication p {
+  margin: 0 0 12px;
+  line-height: 1.6;
+}
+
+.explication p:last-child {
+  margin-bottom: 0;
+}
+
+.explication h2 {
+  font-size: 1.15rem;
+  margin: 0 0 12px;
+}
+
+.card > .courbe-consigne {
+  margin: 0 0 20px;
+  font-size: 0.9rem;
+}
+
+.courbe {
+  position: relative;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.courbe + p {
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.courbe svg {
+  display: block;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.courbe-legende {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  font-size: 0.9rem;
+}
+
+.courbe-legende li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pastille {
+  display: inline-block;
+  width: 12px;
+  height: 4px;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+.pastille-o2 {
+  background: var(--serie-o2);
+}
+
+.pastille-co2 {
+  background: var(--serie-co2);
+}
+
+.courbe-zone {
+  fill: var(--text-muted);
+  opacity: 0.08;
+}
+
+.courbe-grille {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.courbe-axe {
+  fill: var(--text-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.courbe-etiquette {
+  fill: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.courbe-repere {
+  stroke: var(--text-muted);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.courbe-ligne {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.courbe-o2 {
+  stroke: var(--serie-o2);
+}
+
+.courbe-co2 {
+  stroke: var(--serie-co2);
+}
+
+.courbe-curseur {
+  stroke: var(--text-muted);
+  stroke-width: 1;
+}
+
+.courbe-point {
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+
+.courbe-point-o2 {
+  fill: var(--serie-o2);
+}
+
+.courbe-point-co2 {
+  fill: var(--serie-co2);
+}
+
+.courbe-infobulle {
+  position: absolute;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.15);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.courbe-tableau summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.courbe-tableau table {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.courbe-tableau th,
+.courbe-tableau td {
+  text-align: left;
+  padding: 8px 12px 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.courbe-tableau thead th {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.courbe-infobulle-fixe {
+  position: static;
+  box-shadow: none;
+  white-space: normal;
+  min-height: 118px;
+  margin-top: 8px;
 }

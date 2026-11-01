@@ -1,6 +1,6 @@
 import { useAuth } from '../AuthContext.jsx'
 
-export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin, onCentre, onEquipe, onClubs, onContact }) {
+export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin, onCentre, onEquipe, onVo2, onClubs, onContact }) {
   const { user, loading } = useAuth()
 
   return (
@@ -14,6 +14,9 @@ export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin, onCe
         </button>
         <button className="btn btn-ghost" onClick={onEquipe}>
           Notre équipe
+        </button>
+        <button className="btn btn-ghost" onClick={onVo2}>
+          Kossa la VO2 ?
         </button>
         <button className="btn btn-ghost" onClick={onClubs}>
           Vous êtes un club ?

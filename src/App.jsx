@@ -9,6 +9,7 @@ import Centre from './components/Centre.jsx'
 import Clubs from './components/Clubs.jsx'
 import Contact from './components/Contact.jsx'
 import Equipe from './components/Equipe.jsx'
+import KossaVO2 from './components/KossaVO2.jsx'
 import AuthModal from './components/AuthModal.jsx'
 
 export default function App() {
@@ -39,6 +40,7 @@ export default function App() {
         onAdmin={() => setPage('admin')}
         onCentre={() => setPage('centre')}
         onEquipe={() => setPage('equipe')}
+        onVo2={() => setPage('vo2')}
         onClubs={() => setPage('clubs')}
         onContact={() => openContact()}
       />
@@ -47,6 +49,8 @@ export default function App() {
           <Agenda />
         ) : page === 'espace' && user ? (
           <MonEspace onRdv={() => setPage('rdv')} />
+        ) : page === 'vo2' ? (
+          <KossaVO2 onRdv={() => setPage('rdv')} />
         ) : page === 'equipe' ? (
           <Equipe onRdv={() => setPage('rdv')} />
         ) : page === 'contact' ? (
