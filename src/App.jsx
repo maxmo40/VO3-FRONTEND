@@ -10,6 +10,8 @@ import Clubs from './components/Clubs.jsx'
 import Contact from './components/Contact.jsx'
 import Equipe from './components/Equipe.jsx'
 import KossaVO2 from './components/KossaVO2.jsx'
+import Footer from './components/Footer.jsx'
+import PageLegale from './components/PageLegale.jsx'
 import AuthModal from './components/AuthModal.jsx'
 
 export default function App() {
@@ -17,6 +19,11 @@ export default function App() {
   const [page, setPage] = useState('accueil')
   const [authOpen, setAuthOpen] = useState(false)
   const [sujetContact, setSujetContact] = useState('')
+
+  // Chaque nouvelle page s'ouvre en haut (utile depuis les liens du footer)
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [page])
 
   // Déconnecté depuis "Mon espace" ou l'agenda : retour à l'accueil
   useEffect(() => {
@@ -49,6 +56,8 @@ export default function App() {
           <Agenda />
         ) : page === 'espace' && user ? (
           <MonEspace onRdv={() => setPage('rdv')} />
+        ) : page === 'cgv' || page === 'mentions' ? (
+          <PageLegale key={page} page={page} />
         ) : page === 'vo2' ? (
           <KossaVO2 onRdv={() => setPage('rdv')} />
         ) : page === 'equipe' ? (
@@ -65,6 +74,7 @@ export default function App() {
           <Landing onRdv={() => setPage('rdv')} />
         )}
       </main>
+      <Footer onCgv={() => setPage('cgv')} onMentions={() => setPage('mentions')} />
       {authOpen && (
         <AuthModal
           onClose={() => setAuthOpen(false)}

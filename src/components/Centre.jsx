@@ -1,7 +1,4 @@
-// Informations pratiques : à compléter avec les vraies coordonnées du centre
-const ADRESSE = ['[Numéro et rue]', '[Code postal] [Ville]']
-const TELEPHONE = '[Téléphone du centre]'
-const HORAIRES = 'Du lundi au vendredi, de 9 h à 18 h, sur rendez-vous'
+import { ADRESSE, HORAIRES, TELEPHONE } from '../infos.js'
 
 const EQUIPEMENTS = [
   {
