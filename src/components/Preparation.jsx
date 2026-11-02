@@ -1,4 +1,5 @@
 import { formatDateHeure, formatVitesse } from '../format.js'
+import GraphiqueProtocole from './GraphiqueProtocole.jsx'
 
 const CONSEILS = [
   'Venez en tenue de course avec vos chaussures habituelles',
@@ -7,6 +8,20 @@ const CONSEILS = [
 ]
 
 const formatIncrement = (kmh) => kmh.toLocaleString('fr-FR')
+const formatMinutes = (min) => (min === 1 ? '1 minute' : `${min} minutes`)
+
+// Ex. « 8 km/h pendant 1 minute, puis +1 km/h pendant 2 minutes, puis +2 km/h toutes les 2 minutes (2 paliers),
+// puis +0,5 km/h toutes les minutes »
+const decrireDeroulement = ({ depart_kmh, duree_depart_min, sequence }) =>
+  [
+    `départ à ${formatVitesse(depart_kmh)} pendant ${formatMinutes(duree_depart_min)}`,
+    ...sequence.map(({ nb, duree_min, increment_kmh }) => {
+      const pas = `+${formatIncrement(increment_kmh)} km/h`
+      if (nb === 1) return `${pas} pendant ${formatMinutes(duree_min)}`
+      const rythme = duree_min === 1 ? 'toutes les minutes' : `toutes les ${duree_min} minutes`
+      return nb ? `${pas} ${rythme} (${nb} paliers)` : `${pas} ${rythme}`
+    }),
+  ].join(', puis ')
 
 // Protocole du prochain rendez-vous ; sans rendez-vous, on montre le protocole route par défaut
 export default function Preparation({ protocoles, prochainRdv }) {
@@ -51,40 +66,11 @@ export default function Preparation({ protocoles, prochainRdv }) {
           </p>
           <p className="muted">
             {type === 'trail' ? 'Protocole trail' : 'Protocole route'}, sur tapis
-            {protocole.pente_pct ? ` incliné à ${protocole.pente_pct} %` : ''} : départ à{' '}
-            {formatVitesse(protocole.depart_kmh)}, puis +{formatIncrement(protocole.increment_kmh)} km/h{' '}
-            {protocole.duree_palier_min === 1 ? 'toutes les minutes' : `toutes les ${protocole.duree_palier_min} minutes`}, jusqu'à
-            épuisement (environ {protocole.duree_max_min} minutes).
+            {protocole.pente_pct ? ` incliné à ${protocole.pente_pct} %` : ''} : {decrireDeroulement(protocole)},
+            jusqu'à épuisement (environ {protocole.duree_max_min} minutes).
           </p>
 
-          <table className="protocole">
-            <thead>
-              <tr>
-                <th scope="col">Palier</th>
-                <th scope="col">Temps</th>
-                <th scope="col">Vitesse</th>
-                {protocole.pente_pct > 0 && <th scope="col">Pente</th>}
-                <th scope="col">{protocole.pente_pct > 0 ? '% VMA (équiv. plat)' : '% VMA'}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {protocole.paliers.map((palier) => (
-                <tr key={palier.numero}>
-                  <th scope="row">{palier.numero}</th>
-                  <td>
-                    {palier.debut_min}–{palier.fin_min} min
-                  </td>
-                  <td>{formatVitesse(palier.vitesse_kmh)}</td>
-                  {protocole.pente_pct > 0 && <td>{protocole.pente_pct} %</td>}
-                  <td>
-                    <span className="protocole-barre" style={{ '--pct': `${Math.min(palier.pct_vma, 120) / 1.2}%` }}>
-                      {palier.pct_vma} %
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <GraphiqueProtocole protocole={protocole} />
 
           {protocole.pente_pct > 0 ? (
             <p className="muted small">

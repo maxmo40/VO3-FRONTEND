@@ -1015,42 +1015,6 @@ main {
   margin: 0 0 8px;
 }
 
-.protocole {
-  width: 100%;
-  margin: 16px 0;
-  border-collapse: collapse;
-  font-variant-numeric: tabular-nums;
-}
-
-.protocole th,
-.protocole td {
-  text-align: left;
-  padding: 8px 12px 8px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.protocole thead th {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.protocole tbody th {
-  font-weight: 600;
-}
-
-/* Barre proportionnelle au % de VMA, derrière la valeur */
-.protocole-barre {
-  display: inline-block;
-  min-width: 56px;
-  width: var(--pct);
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: color-mix(in srgb, var(--primary) 22%, transparent);
-  font-weight: 600;
-  white-space: nowrap;
-}
-
 .preparation-conseils {
   margin: 0;
   padding-left: 20px;
@@ -1511,4 +1475,25 @@ h1 {
 
 .hero h1 {
   letter-spacing: -0.02em;
+}
+
+.graphique-protocole {
+  margin: 16px 0;
+}
+
+.escalier-ligne {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.escalier-aire {
+  fill: var(--primary);
+  opacity: 0.1;
+}
+
+.escalier-survol {
+  fill: var(--primary);
+  opacity: 0.18;
 }
