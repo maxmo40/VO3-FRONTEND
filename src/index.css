@@ -1457,7 +1457,13 @@ h1 {
   font-weight: 800;
 }
 
-/* « RUN » de VO2RUN en couleur lave */
+/* Outfit n'a pas d'italique : le navigateur l'incline, avec un peu d'espace pour que le N ne soit pas rogné */
+.marque {
+  font-style: italic;
+  padding-right: 0.06em;
+}
+
+/* « RUN » de VO2RUN en rouge */
 .marque-run {
   color: var(--accent);
 }

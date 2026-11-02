@@ -162,7 +162,10 @@ export default function MonEspace({ onRdv }) {
         )}
       </div>
 
-      <Preparation protocole={donnees?.protocole} />
+      <Preparation
+        protocoles={donnees?.protocoles}
+        prochainRdv={rdvs?.find((rdv) => new Date(rdv.debut) > new Date())}
+      />
 
       {vo2max?.velo ? (
         <div className="card vo2max">
