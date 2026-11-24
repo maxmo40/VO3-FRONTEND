@@ -1,7 +1,8 @@
 import { useEffect, useId, useRef, useState } from 'react'
 
 // Bouton de navbar avec un sous-menu : ouvert au survol (CSS) ou via la flèche (tactile, clavier)
-export default function MenuDeroulant({ libelle, onClick, elements }) {
+// `classeBouton` : style du bouton principal (transparent par défaut)
+export default function MenuDeroulant({ libelle, onClick, elements, classeBouton = 'btn btn-ghost' }) {
   const [ouvert, setOuvert] = useState(false)
   const conteneur = useRef(null)
   const id = useId()
@@ -28,7 +29,7 @@ export default function MenuDeroulant({ libelle, onClick, elements }) {
 
   return (
     <div className={`menu-deroulant${ouvert ? ' ouvert' : ''}`} ref={conteneur}>
-      <button className="btn btn-ghost" onClick={choisir(onClick)}>
+      <button className={classeBouton} onClick={choisir(onClick)}>
         {libelle}
       </button>
       <button

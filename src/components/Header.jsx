@@ -3,7 +3,7 @@ import MenuDeroulant from './MenuDeroulant.jsx'
 import Marque from './Marque.jsx'
 
 export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin, onCentre, onEquipe, onVo2, onClubs, onContact }) {
-  const { user, loading } = useAuth()
+  const { user, loading, logout } = useAuth()
 
   return (
     <header className="header">
@@ -30,9 +30,12 @@ export default function Header({ onHome, onLogin, onEspace, onRdv, onAdmin, onCe
         </button>
         {!loading &&
           (user ? (
-            <button className="btn btn-primary" onClick={onEspace}>
-              Mon espace
-            </button>
+            <MenuDeroulant
+              libelle="Mon espace"
+              onClick={onEspace}
+              classeBouton="btn btn-primary"
+              elements={[{ libelle: 'Se déconnecter', onClick: logout }]}
+            />
           ) : (
             <button className="btn btn-primary" onClick={onLogin}>
               Se connecter
