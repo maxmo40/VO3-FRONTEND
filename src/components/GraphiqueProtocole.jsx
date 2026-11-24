@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { formatVitesse } from '../format.js'
 
-// Vitesse du tapis au fil du test : une marche d'escalier par palier (paliers de durées variables)
+// Vitesse du tapis (km/h) ou puissance de l'ergocycle (W) au fil du test :
+// une marche d'escalier par palier (paliers de durées variables)
 export default function GraphiqueProtocole({ protocole }) {
   const conteneur = useRef(null)
   const [largeur, setLargeur] = useState(640)
@@ -13,29 +14,32 @@ export default function GraphiqueProtocole({ protocole }) {
     return () => observateur.disconnect()
   }, [])
 
-  const { paliers, duree_max_min: dureeMax, vitesse_vma_kmh: vitesseVma, pente_pct: pente } = protocole
+  const { paliers, duree_max_min: dureeMax, repere, pente_pct: pente, unite } = protocole
+  const enWatts = unite === 'W'
+  const formatValeur = (v) => (enWatts ? `${v} W` : formatVitesse(v))
   const etroit = largeur < 520
   const hauteur = etroit ? 240 : 300
   const marge = { haut: 32, droite: 16, bas: 44, gauche: 44 }
   const l = Math.max(0, largeur - marge.gauche - marge.droite)
   const h = hauteur - marge.haut - marge.bas
 
-  // Axe des vitesses resserré autour du test pour que les marches restent lisibles
-  const vMin = Math.max(0, Math.floor(paliers[0].vitesse_kmh) - 2)
-  const vMax = Math.ceil(Math.max(paliers.at(-1).vitesse_kmh, vitesseVma)) + 1
+  // Axe vertical resserré autour du test pour que les marches restent lisibles
+  const margeAxe = enWatts ? 50 : 2
+  const vMin = Math.max(0, Math.floor((paliers[0].valeur - margeAxe / 2) / margeAxe) * margeAxe)
+  const vMax = Math.ceil((Math.max(paliers.at(-1).valeur, repere.valeur) + margeAxe / 4) / margeAxe) * margeAxe
   const x = (min) => marge.gauche + (min / dureeMax) * l
   const y = (v) => marge.haut + h - ((v - vMin) / (vMax - vMin)) * h
 
   const escalier = paliers
-    .map((p, i) => `${i ? 'V' : `M${x(p.debut_min)},`}${y(p.vitesse_kmh)}H${x(p.fin_min)}`)
+    .map((p, i) => `${i ? 'V' : `M${x(p.debut_min)},`}${y(p.valeur)}H${x(p.fin_min)}`)
     .join('')
   const aire = `${escalier}V${y(vMin)}H${x(0)}Z`
 
   const pasTemps = dureeMax > 12 || etroit ? 2 : 1
   const ticksX = Array.from({ length: Math.floor(dureeMax / pasTemps) + 1 }, (_, i) => i * pasTemps)
-  const pasVitesse = vMax - vMin > 8 ? 2 : 1
+  const pasY = enWatts ? (vMax - vMin > 300 ? 100 : 50) : vMax - vMin > 8 ? 2 : 1
   const ticksY = []
-  for (let v = Math.ceil(vMin / pasVitesse) * pasVitesse; v <= vMax; v += pasVitesse) ticksY.push(v)
+  for (let v = Math.ceil(vMin / pasY) * pasY; v <= vMax; v += pasY) ticksY.push(v)
 
   const handlePointer = (e) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -51,11 +55,12 @@ export default function GraphiqueProtocole({ protocole }) {
         Palier {palier.numero} · {palier.debut_min}–{palier.fin_min} min
       </strong>
       <span>
-        {formatVitesse(palier.vitesse_kmh)}
+        {formatValeur(palier.valeur)}
         {pente ? ` à ${pente} % de pente` : ''}
       </span>
       <span className="muted">
-        {palier.pct_vma} % de la VMA{pente ? ' (équivalent plat)' : ''}
+        {palier.pct} % de la {enWatts ? 'puissance max estimée' : 'VMA'}
+        {pente ? ' (équivalent plat)' : ''}
       </span>
     </>
   )
@@ -66,9 +71,9 @@ export default function GraphiqueProtocole({ protocole }) {
         width={largeur}
         height={hauteur}
         role="img"
-        aria-label={`Vitesse du tapis de ${formatVitesse(paliers[0].vitesse_kmh)} à ${formatVitesse(
-          paliers.at(-1).vitesse_kmh
-        )}, en ${paliers.length} paliers sur ${dureeMax} minutes`}
+        aria-label={`${enWatts ? "Puissance de l'ergocycle" : 'Vitesse du tapis'} de ${formatValeur(
+          paliers[0].valeur
+        )} à ${formatValeur(paliers.at(-1).valeur)}, en ${paliers.length} paliers sur ${dureeMax} minutes`}
         onPointerMove={handlePointer}
         onPointerDown={handlePointer}
         onPointerLeave={() => setSurvol(null)}
@@ -82,7 +87,7 @@ export default function GraphiqueProtocole({ protocole }) {
           </g>
         ))}
         <text className="courbe-axe" x={marge.gauche - 8} y={marge.haut - 18} textAnchor="end">
-          km/h
+          {unite}
         </text>
         {ticksX.map((m) => (
           <text key={m} className="courbe-axe" x={x(m)} y={marge.haut + h + 18} textAnchor="middle">
@@ -95,19 +100,19 @@ export default function GraphiqueProtocole({ protocole }) {
 
         <path className="escalier-aire" d={aire} />
 
-        {/* Repère : vitesse correspondant à la VMA (équivalent plat en pente) */}
-        <line className="courbe-repere" x1={marge.gauche} x2={marge.gauche + l} y1={y(vitesseVma)} y2={y(vitesseVma)} />
-        <text className="courbe-etiquette" x={marge.gauche + 6} y={y(vitesseVma) - 6}>
-          VMA{pente ? ` (équiv. à ${pente} %)` : ''} · {formatVitesse(vitesseVma)}
+        {/* Repère : VMA (équivalent plat en pente) ou puissance maximale estimée */}
+        <line className="courbe-repere" x1={marge.gauche} x2={marge.gauche + l} y1={y(repere.valeur)} y2={y(repere.valeur)} />
+        <text className="courbe-etiquette" x={marge.gauche + 6} y={y(repere.valeur) - 6}>
+          {repere.libelle} · {formatValeur(repere.valeur)}
         </text>
 
         {palier && (
           <rect
             className="escalier-survol"
             x={x(palier.debut_min)}
-            y={y(palier.vitesse_kmh)}
+            y={y(palier.valeur)}
             width={x(palier.fin_min) - x(palier.debut_min)}
-            height={y(vMin) - y(palier.vitesse_kmh)}
+            height={y(vMin) - y(palier.valeur)}
           />
         )}
         <path className="escalier-ligne" d={escalier} />
@@ -115,14 +120,14 @@ export default function GraphiqueProtocole({ protocole }) {
 
       {etroit ? (
         <div className="courbe-infobulle courbe-infobulle-fixe" aria-live="polite">
-          {infos ?? <span className="muted">Touchez un palier pour lire sa vitesse</span>}
+          {infos ?? <span className="muted">Touchez un palier pour lire sa {enWatts ? 'puissance' : 'vitesse'}</span>}
         </div>
       ) : (
         palier && (
           <div
             className="courbe-infobulle"
             style={{
-              top: Math.max(0, y(palier.vitesse_kmh) - 90),
+              top: Math.max(0, y(palier.valeur) - 90),
               ...(x(palier.fin_min) > largeur / 2
                 ? { right: largeur - x(palier.debut_min) + 8 }
                 : { left: x(palier.fin_min) + 8 }),
