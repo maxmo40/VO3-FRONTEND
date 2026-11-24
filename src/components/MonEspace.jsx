@@ -31,7 +31,7 @@ const RUBRIQUES = [
   { id: 'mes-rendez-vous', titre: 'Mes rendez-vous' },
   { id: 'questionnaire-medical', titre: 'Questionnaire médical pré-test' },
   { id: 'mes-performances', titre: 'Mes performances' },
-  { id: 'preparation-examen', titre: "Préparation de l'examen" },
+  { id: 'protocole-examen', titre: "Protocole de l'examen" },
   { id: 'droit-image', titre: "Droit à l'image" },
   { id: 'consentement', titre: 'Consentement' },
 ]
@@ -360,7 +360,7 @@ export default function MonEspace({ onRdv, onPolitique }) {
           )}
         </div>
 
-        <div id="preparation-examen" className="espace-rubrique">
+        <div id="protocole-examen" className="espace-rubrique">
           <Preparation
             protocoles={donnees?.protocoles}
             prochainRdv={rdvs?.find((rdv) => new Date(rdv.debut) > new Date())}

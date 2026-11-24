@@ -197,7 +197,7 @@ export default function Preparation({ protocoles, prochainRdv, onRdvModifie }) {
 
   return (
     <div className="card preparation">
-      <h2>Préparation de l'examen</h2>
+      <h2>Protocole de l'examen</h2>
 
       {prochainRdv && (
         <p>
