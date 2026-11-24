@@ -1519,3 +1519,72 @@ h1 {
   color: var(--text-muted);
 }
 
+/* Questionnaire médical pré-test */
+.questionnaire fieldset.questionnaire-cases {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+
+.questionnaire-question {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  padding: 0;
+  margin-bottom: 4px;
+  width: 100%;
+}
+
+.questionnaire-champ {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.profil-form label.case {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.profil-form label.case input {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  accent-color: var(--primary);
+}
+
+.questionnaire-note {
+  font-weight: 400;
+}
+
+.questionnaire-resultat {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border-left: 4px solid;
+  line-height: 1.4;
+}
+
+.questionnaire-resultat p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+}
+
+.questionnaire-resultat.alerte {
+  border-color: var(--accent);
+  background: #fbeaea;
+  color: var(--text);
+}
+
+.questionnaire-resultat.ok {
+  border-color: var(--success);
+  background: #e9f5ec;
+  color: var(--text);
+}

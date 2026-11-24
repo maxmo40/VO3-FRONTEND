@@ -4,6 +4,7 @@ import { api } from '../api.js'
 import { formatDateHeure, formatPrix } from '../format.js'
 import Performances from './Performances.jsx'
 import Preparation from './Preparation.jsx'
+import QuestionnaireMedical from './QuestionnaireMedical.jsx'
 
 const PROFIL_VIDE = {
   prenom: '',
@@ -166,6 +167,8 @@ export default function MonEspace({ onRdv }) {
         protocoles={donnees?.protocoles}
         prochainRdv={rdvs?.find((rdv) => new Date(rdv.debut) > new Date())}
       />
+
+      <QuestionnaireMedical dateNaissance={donnees?.date_naissance} />
 
       {vo2max?.velo ? (
         <div className="card vo2max">

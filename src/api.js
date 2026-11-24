@@ -57,4 +57,6 @@ export const api = {
   mesRdv: (token) => request('/rdv/mes-rdv', { token }),
   annulerRdv: (token, id) => request(`/rdv/${id}/annuler`, { method: 'POST', token }),
   agenda: (token) => request('/admin/rdv', { token }),
+  getQuestionnaire: (token) => request('/questionnaire', { token }),
+  saveQuestionnaire: (token, reponses) => request('/questionnaire', { method: 'PUT', body: reponses, token }),
 }
