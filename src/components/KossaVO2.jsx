@@ -19,6 +19,29 @@ const ZONES = [
   },
 ]
 
+// Fourchettes usuelles d'intensité de course (Costill, Davies & Thompson, Billat) : haut de fourchette
+// pour les coureurs entraînés, bas de fourchette pour les amateurs
+const COURSES = [
+  {
+    titre: '10 km',
+    pct: '90 à 95 %',
+    texte:
+      "Une course courte et intense, courue autour de SV2 voire légèrement au-dessus. Le souffle est court dès les premiers kilomètres : c'est la zone 3 qui fait la différence.",
+  },
+  {
+    titre: 'Semi-marathon',
+    pct: '85 à 90 %',
+    texte:
+      "L'allure se cale juste sous SV2, au seuil : assez vite pour performer, assez bas pour ne pas accumuler l'acidité. Partir au-dessus de SV2, c'est exploser avant l'arrivée.",
+  },
+  {
+    titre: 'Marathon',
+    pct: '75 à 85 %',
+    texte:
+      "Entre SV1 et SV2, plus proche de SV1 pour un amateur. L'enjeu est d'économiser ses réserves de glucides : une allure trop proche de SV2 mène tout droit au « mur ».",
+  },
+]
+
 const INTERETS = [
   {
     titre: 'Des zones vraiment personnelles',
@@ -164,6 +187,26 @@ export default function KossaVO2({ onRdv }) {
             <article key={z.titre} className="feature">
               <h2>{z.titre}</h2>
               <p>{z.texte}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h2>Trois zones pour performer</h2>
+        <p className="muted section-intro">
+          En compétition, chaque distance se court à un pourcentage différent de la VO2max. Le haut de la
+          fourchette concerne les coureurs entraînés, le bas les amateurs : vos seuils mesurés disent où
+          vous vous situez.
+        </p>
+        <div className="features">
+          {COURSES.map((c) => (
+            <article key={c.titre} className="feature course">
+              <h2>{c.titre}</h2>
+              <p className="course-pct">
+                {c.pct} <span>de la VO2max</span>
+              </p>
+              <p>{c.texte}</p>
             </article>
           ))}
         </div>
