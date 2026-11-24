@@ -20,7 +20,7 @@ const RESEAUX = [
   },
 ]
 
-export default function Footer({ onCgv, onMentions }) {
+export default function Footer({ onCgv, onMentions, onConfidentialite }) {
   return (
     <>
       <Remparts className="remparts-footer" />
@@ -69,6 +69,9 @@ export default function Footer({ onCgv, onMentions }) {
             </button>
             <button className="link" onClick={onMentions}>
               Mentions légales
+            </button>
+            <button className="link" onClick={onConfidentialite}>
+              Confidentialité
             </button>
           </nav>
         </div>

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAuth } from '../AuthContext.jsx'
 import { api } from '../api.js'
+import { ConsentementsRequis } from './Consentements.jsx'
 import { formatDateHeure, formatDuree, formatHeure, formatJour, formatPrix } from '../format.js'
 
 // Option affichée mais pas encore réservable
@@ -14,6 +15,7 @@ export default function Reservation({ onLogin, onEspace, onContact }) {
   const [creneau, setCreneau] = useState(null)
   const [confirmation, setConfirmation] = useState(null)
   const [paying, setPaying] = useState(false)
+  const [consentementsOk, setConsentementsOk] = useState(false)
   const [error, setError] = useState('')
 
   const chargerCreneaux = () =>
@@ -190,7 +192,8 @@ export default function Reservation({ onLogin, onEspace, onContact }) {
 
           {user ? (
             <>
-              <button className="btn btn-primary btn-block" onClick={payer} disabled={paying}>
+              <ConsentementsRequis onPret={setConsentementsOk} />
+              <button className="btn btn-primary btn-block" onClick={payer} disabled={paying || !consentementsOk}>
                 {paying ? 'Paiement en cours…' : `Payer ${formatPrix(bilan.prix_centimes)}`}
               </button>
               <p className="muted small">Paiement simulé : aucun montant ne sera débité.</p>

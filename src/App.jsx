@@ -56,8 +56,8 @@ export default function App() {
         {page === 'admin' && user?.is_admin ? (
           <Agenda />
         ) : page === 'espace' && user ? (
-          <MonEspace onRdv={() => setPage('rdv')} />
-        ) : page === 'cgv' || page === 'mentions' ? (
+          <MonEspace onRdv={() => setPage('rdv')} onPolitique={() => setPage('confidentialite')} />
+        ) : ['cgv', 'mentions', 'confidentialite'].includes(page) ? (
           <PageLegale key={page} page={page} />
         ) : page === 'vo2' ? (
           <KossaVO2 onRdv={() => setPage('rdv')} />
@@ -75,7 +75,11 @@ export default function App() {
           <Landing onRdv={() => setPage('rdv')} />
         )}
       </main>
-      <Footer onCgv={() => setPage('cgv')} onMentions={() => setPage('mentions')} />
+      <Footer
+        onCgv={() => setPage('cgv')}
+        onMentions={() => setPage('mentions')}
+        onConfidentialite={() => setPage('confidentialite')}
+      />
       {authMode && (
         <AuthModal
           initialMode={authMode}

@@ -5,6 +5,7 @@ import { formatDateHeure, formatPrix } from '../format.js'
 import Performances from './Performances.jsx'
 import Preparation from './Preparation.jsx'
 import QuestionnaireMedical from './QuestionnaireMedical.jsx'
+import Consentements from './Consentements.jsx'
 
 const PROFIL_VIDE = {
   prenom: '',
@@ -24,7 +25,7 @@ const versFormulaire = (profil) =>
 
 const today = new Date().toISOString().slice(0, 10)
 
-export default function MonEspace({ onRdv }) {
+export default function MonEspace({ onRdv, onPolitique }) {
   const { user, withAuth, logout } = useAuth()
   const [memberSince, setMemberSince] = useState(null)
   const [profil, setProfil] = useState(PROFIL_VIDE)
@@ -289,6 +290,8 @@ export default function MonEspace({ onRdv }) {
           {message && <p className={`form-${message.type}`}>{message.text}</p>}
         </div>
       </form>
+
+      <Consentements onPolitique={onPolitique} />
 
       <button className="btn btn-secondary" onClick={logout}>
         Se déconnecter

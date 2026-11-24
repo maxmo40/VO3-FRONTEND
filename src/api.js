@@ -59,5 +59,7 @@ export const api = {
   choisirProtocole: (token, id, protocole) => request(`/rdv/${id}/protocole`, { method: 'PUT', body: protocole, token }),
   agenda: (token) => request('/admin/rdv', { token }),
   getQuestionnaire: (token) => request('/questionnaire', { token }),
+  getConsentements: (token) => request('/consentements', { token }),
+  saveConsentements: (token, choix) => request('/consentements', { method: 'PUT', body: choix, token }),
   saveQuestionnaire: (token, reponses) => request('/questionnaire', { method: 'PUT', body: reponses, token }),
 }
