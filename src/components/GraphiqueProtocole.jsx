@@ -3,7 +3,7 @@ import { formatVitesse } from '../format.js'
 
 // Vitesse du tapis (km/h) ou puissance de l'ergocycle (W) au fil du test :
 // une marche d'escalier par palier (paliers de durées variables)
-export default function GraphiqueProtocole({ protocole }) {
+export default function GraphiqueProtocole({ protocole, couleur }) {
   const conteneur = useRef(null)
   const [largeur, setLargeur] = useState(640)
   const [survol, setSurvol] = useState(null)
@@ -66,7 +66,7 @@ export default function GraphiqueProtocole({ protocole }) {
   )
 
   return (
-    <div className="courbe graphique-protocole" ref={conteneur}>
+    <div className="courbe graphique-protocole" ref={conteneur} style={couleur && { '--serie-protocole': couleur }}>
       <svg
         width={largeur}
         height={hauteur}

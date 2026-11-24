@@ -56,6 +56,7 @@ export const api = {
   reserver: (token, reservation) => request('/rdv', { method: 'POST', body: reservation, token }),
   mesRdv: (token) => request('/rdv/mes-rdv', { token }),
   annulerRdv: (token, id) => request(`/rdv/${id}/annuler`, { method: 'POST', token }),
+  choisirProtocole: (token, id, protocole) => request(`/rdv/${id}/protocole`, { method: 'PUT', body: protocole, token }),
   agenda: (token) => request('/admin/rdv', { token }),
   getQuestionnaire: (token) => request('/questionnaire', { token }),
   saveQuestionnaire: (token, reponses) => request('/questionnaire', { method: 'PUT', body: reponses, token }),

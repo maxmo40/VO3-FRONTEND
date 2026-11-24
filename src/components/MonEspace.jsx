@@ -166,6 +166,7 @@ export default function MonEspace({ onRdv }) {
       <Preparation
         protocoles={donnees?.protocoles}
         prochainRdv={rdvs?.find((rdv) => new Date(rdv.debut) > new Date())}
+        onRdvModifie={(modifie) => setRdvs((liste) => liste.map((rdv) => (rdv.id === modifie.id ? modifie : rdv)))}
       />
 
       <QuestionnaireMedical dateNaissance={donnees?.date_naissance} />

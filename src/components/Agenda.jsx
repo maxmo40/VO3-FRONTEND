@@ -1,9 +1,33 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAuth } from '../AuthContext.jsx'
 import { api } from '../api.js'
-import { formatHeure, formatJour, formatPrix } from '../format.js'
+import { formatHeure, formatJour, formatPrix, formatVitesse } from '../format.js'
+import { decrireDeroulement, formatNombre } from '../protocoleTexte.js'
 
 const finRdv = (rdv) => new Date(new Date(rdv.debut).getTime() + rdv.duree_minutes * 60_000).toISOString()
+
+// Réglages à appliquer le jour du test (tapis ou ergocycle)
+function ProtocoleRdv({ rdv }) {
+  const { protocole, vma } = rdv
+  if (!protocole) {
+    return (
+      <span className="agenda-protocole manquant">
+        Protocole non calculable : le client n'a pas renseigné sa VMA ni ses temps de course
+      </span>
+    )
+  }
+  const machine = protocole.unite === 'W' ? 'Ergocycle' : `Tapis ${formatNombre(protocole.pente_pct)} %`
+  return (
+    <span className={`agenda-protocole ${protocole.par_defaut ? '' : 'choisi'}`}>
+      <strong>
+        {protocole.titre}
+        {rdv.type_bilan === 'trail' && (protocole.par_defaut ? ' (par défaut, non validé par le client)' : ' (validé par le client)')}
+      </strong>{' '}
+      · {machine} : {decrireDeroulement(protocole)}
+      {vma != null && ` · VMA ${formatVitesse(vma)}`}
+    </span>
+  )
+}
 
 const nomClient = ({ prenom, nom, email }) => [prenom, nom].filter(Boolean).join(' ') || email || 'Client inconnu'
 
@@ -69,6 +93,7 @@ export default function Agenda() {
                   <div className="agenda-details">
                     <strong>{nomClient(rdv.client)}</strong>
                     <span className="muted">{rdv.libelle}</span>
+                    <ProtocoleRdv rdv={rdv} />
                     <span className="agenda-contact">
                       {rdv.client.email && <a href={`mailto:${rdv.client.email}`}>{rdv.client.email}</a>}
                       {rdv.client.telephone && <a href={`tel:${rdv.client.telephone}`}>{rdv.client.telephone}</a>}
