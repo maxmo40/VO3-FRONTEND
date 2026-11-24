@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../AuthContext.jsx'
 
-export default function AuthModal({ onClose, onSuccess }) {
+export default function AuthModal({ initialMode = 'login', onClose, onSuccess }) {
   const { signup, login } = useAuth()
-  const [mode, setMode] = useState('signup')
+  const [mode, setMode] = useState(initialMode)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -25,7 +25,13 @@ export default function AuthModal({ onClose, onSuccess }) {
       await (isSignup ? signup : login)(email, password)
       onSuccess()
     } catch (err) {
-      setError(err.message)
+      // Inscription avec un email déjà connu : on bascule directement sur la connexion
+      if (isSignup && err.status === 409) {
+        setMode('login')
+        setError('Un compte existe déjà avec cet email : connectez-vous avec votre mot de passe.')
+      } else {
+        setError(err.message)
+      }
     } finally {
       setSubmitting(false)
     }

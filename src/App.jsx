@@ -17,7 +17,7 @@ import AuthModal from './components/AuthModal.jsx'
 export default function App() {
   const { user } = useAuth()
   const [page, setPage] = useState('accueil')
-  const [authOpen, setAuthOpen] = useState(false)
+  const [authMode, setAuthMode] = useState(null) // null : fenêtre fermée, sinon 'login' ou 'signup'
   const [sujetContact, setSujetContact] = useState('')
 
   // Chaque nouvelle page s'ouvre en haut (utile depuis les liens du footer)
@@ -30,7 +30,8 @@ export default function App() {
     if ((!user && page === 'espace') || (!user?.is_admin && page === 'admin')) setPage('accueil')
   }, [user, page])
 
-  const openAuth = () => setAuthOpen(true)
+  const openLogin = () => setAuthMode('login')
+  const openSignup = () => setAuthMode('signup')
 
   const openContact = (sujet = '') => {
     setSujetContact(sujet)
@@ -41,7 +42,7 @@ export default function App() {
     <>
       <Header
         onHome={() => setPage('accueil')}
-        onLogin={openAuth}
+        onLogin={openLogin}
         onEspace={() => setPage('espace')}
         onRdv={() => setPage('rdv')}
         onAdmin={() => setPage('admin')}
@@ -69,17 +70,18 @@ export default function App() {
         ) : page === 'centre' ? (
           <Centre onRdv={() => setPage('rdv')} />
         ) : page === 'rdv' ? (
-          <Reservation onLogin={openAuth} onEspace={() => setPage('espace')} onContact={openContact} />
+          <Reservation onLogin={openSignup} onEspace={() => setPage('espace')} onContact={openContact} />
         ) : (
           <Landing onRdv={() => setPage('rdv')} />
         )}
       </main>
       <Footer onCgv={() => setPage('cgv')} onMentions={() => setPage('mentions')} />
-      {authOpen && (
+      {authMode && (
         <AuthModal
-          onClose={() => setAuthOpen(false)}
+          initialMode={authMode}
+          onClose={() => setAuthMode(null)}
           onSuccess={() => {
-            setAuthOpen(false)
+            setAuthMode(null)
             // Pendant une réservation, on reste sur le parcours pour pouvoir payer
             if (page !== 'rdv') setPage('espace')
           }}
