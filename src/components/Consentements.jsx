@@ -158,7 +158,7 @@ export default function Consentements({ onPolitique }) {
 
   return (
     <>
-      <div className="card consentement">
+      <div id="droit-image" className="card consentement">
         <div className="card-header">
           <h2 id="titre-droit-image">Droit à l'image</h2>
           <div className="segmented" role="group" aria-labelledby="titre-droit-image">
@@ -189,7 +189,7 @@ export default function Consentements({ onPolitique }) {
         {statut(true)}
       </div>
 
-      <div className="card consentement">
+      <div id="consentement" className="card consentement">
         <h2>Consentement</h2>
         <fieldset className="consentement-liste" disabled={loading}>
           <legend className="sr-only">Consentements</legend>
